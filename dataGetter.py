@@ -23,7 +23,7 @@ class DataGetter:
         DataGetter.df["price"].plot()
         DataGetter.df['ewma1day'] = pd.ewma(DataGetter.df['price'], span=60)  # 1日の加重移動平均
         DataGetter.df['ewma5days'] = pd.ewma(DataGetter.df['price'], span=180)  # だいたい5日あたりの加重移動平均
-        DataGetter.df['ewma25days'] = pd.ewma(DataGetter.df['price'], span=3600)  # だいたい25日あたりの加重移動平均
+        DataGetter.df['ewma25days'] = pd.ewma(DataGetter.df['price'], span=1500)  # だいたい25日あたりの加重移動平均
         DataGetter.df['ewma1day'].plot()
         DataGetter.df['ewma5days'].plot()
         DataGetter.df['ewma25days'].plot()
@@ -48,7 +48,7 @@ class DataGetter:
 
         DataGetter.df['ewma1day'] = pd.ewma(DataGetter.df['price'], span=60)  # 1日の加重移動平均
         DataGetter.df['ewma5days'] = pd.ewma(DataGetter.df['price'], span=180)  # だいたい5日あたりの加重移動平均
-        DataGetter.df['ewma25days'] = pd.ewma(DataGetter.df['price'], span=3600)  # だいたい25日あたりの加重移動平均
+        DataGetter.df['ewma25days'] = pd.ewma(DataGetter.df['price'], span=1500)  # だいたい25日あたりの加重移動平均
         DataGetter.df['divergence'] = (DataGetter.df['price'] - DataGetter.df['ewma25days']) / DataGetter.df['ewma25days'] * 100  # 5 日移動平均に対する界入り率
         DataGetter.df['1dayDiv'] = (DataGetter.df['price'] - DataGetter.df['ewma1day']) / DataGetter.df['ewma1day'] * 100  # 1日移動平均に対するそのときの乖離率
         DataGetter.df['5dayDiv'] = (DataGetter.df['price'] - DataGetter.df['ewma5days']) / DataGetter.df['ewma5days'] * 100  # 5日移動平均に対するそのときの乖離率
