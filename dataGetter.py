@@ -10,10 +10,12 @@ class DataGetter:
 
     df = pd.DataFrame(index=[],columns=[])
     df_length = 0
+    df_path = "tobedecided"
 
-    def __init__(self): # インスタンス生成と同時にその瞬間のデータを引っ張り出す
+    def __init__(self,path): # インスタンス生成と同時にその瞬間のデータを引っ張り出す
+        DataGetter.df_path = path
 
-        DataGetter.df = pd.read_csv("C:\\Users\\Kei\\Desktop\\bitflyer2.csv",  # dataframe を代入しなおす
+        DataGetter.df = pd.read_csv(path,  # dataframe を代入しなおす
                          header=None,
                          parse_dates=True,
                          date_parser=lambda x: datetime.fromtimestamp(float(x)),
@@ -37,7 +39,7 @@ class DataGetter:
 
     def datas(self):
 
-        DataGetter.df = pd.read_csv("C:\\Users\\Kei\\Desktop\\bitflyer2.csv",  # dataframe を代入しなおす
+        DataGetter.df = pd.read_csv(DataGetter.df_path,  # dataframe を代入しなおす
                          header=None,
                         # chunksize=36000,
                         # skiprows= DataGetter.df_length - (DataGetter.df_length - 36500),

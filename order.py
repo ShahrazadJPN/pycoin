@@ -10,10 +10,10 @@ import sys
 
 class Order:
 
-    def buy_sell(self, ordertype, ordersize, orderprice):
-        api = pybitflyer.API(api_key="WR95knYrj36CabGWHK1gdV", api_secret="2Gv0skryfEFZTBnJ3/WocvSrRVeIbi1vzsZ9sAurqaU=")
-        ticker = api.ticker(product_code="FX_BTC_JPY")
-        board = api.board(product_code="FX_BTC_JPY")
+    def buy_sell(self, ordertype, ordersize, orderprice,product,apiKey,apiSecret):
+        api = pybitflyer.API(api_key=apiKey, api_secret=apiSecret)
+        ticker = api.ticker(product_code=product)
+        board = api.board(product_code=product)
 
         if ordertype == "BUY":
             contrary = "SELL"
@@ -28,22 +28,22 @@ class Order:
         buy_btc = api.sendparentorder(
                                      order_method="IFDOCO",
                                      parameters=[{
-                                         "product_code": "FX_BTC_JPY",
+                                         "product_code": product,
                                          "condition_type": "LIMIT",
                                          "side": ordertype, # 買いか？
                                          "price": orderprice,
                                          "size": ordersize
                                      },
                                          {
-                                             "product_code": "FX_BTC_JPY",
+                                             "product_code": product,
                                              "condition_type": "LIMIT",
                                              "side": contrary,
                                              "price": profit, ### えっと？？？
                                              "size": ordersize ### 所持しているビットコインの数量を入れる
                                          },
                                          {
-                                             "product_code": "FX_BTC_JPY",
-                                             "condition_type": "STOP", # 逆指値注文
+                                             "product_code": product,
+                                             "condition_type": "STOP", # ストップ注文
                                              "side": contrary,
                                              "price": 0, # ここらへん再考
                                              "trigger_price": loss,
@@ -53,7 +53,7 @@ class Order:
                                      #time_in_force="GTC"
                                      )
 
-        print("ordered: " + str(ordersize) + "BTC at the price of " + str(orderprice))
+        print("ordered: "+ ordertype + str(ordersize) + "BTC at the price of " + str(orderprice))
 
         print(buy_btc)
 
