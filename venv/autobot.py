@@ -15,9 +15,7 @@ path = "C:\\Users\\Kei\\Desktop\\bitflyer2.csv"
 product = "FX_BTC_JPY"
 
 df = pd.DataFrame(index=[],columns=[])
-
 df = dG.DataGetter(path)  # DFオブジェクト生成・・・最新の取得情報が入っている。
-
 api = pybitflyer.API(api_key=apiKey, api_secret=apiSecret)
 
 border = 4 # 売買する乖離率の基準値
@@ -25,7 +23,7 @@ gotPrice = 1
 count = 0
 
 order = order.Order()
-ordertype = "not_decided"
+ordertype = ""
 ordersize = 0
 orderprice = 0
 
