@@ -41,8 +41,6 @@ class DataGetter:
 
         DataGetter.df = pd.read_csv(DataGetter.df_path,  # dataframe を代入しなおす
                          header=None,
-                        # chunksize=36000,
-                        # skiprows= DataGetter.df_length - (DataGetter.df_length - 36500),
                          parse_dates=True,
                          date_parser=lambda x: datetime.fromtimestamp(float(x)),
                          index_col='datetime',

@@ -38,7 +38,7 @@ class Bitflyer:
 
         w = pd.DataFrame([[time, lastPrice, midPrice]]) # 取得したティッカーをデータフレームに入れる
 
-        w.to_csv(path, index=False, encoding="utf-8",mode='a', header=False)    #CSVにかきこわえる
+        w.to_csv(path, index=False, encoding="utf-8",mode='a', header=False)    #CSV
 
     def recorder(self,money,price,btc):
 
@@ -51,9 +51,6 @@ class Bitflyer:
 
         w = pd.DataFrame([[self.money,time,self.price]])
 
-        w.to_csv(self.path, index=False, encoding="utf-8",mode='a', header=False)    #CSVにかきこわえる
+        w.to_csv(self.path, index=False, encoding="utf-8",mode='a', header=False)    #CSV
 
         print("資産：" + str(money) + "　売買価格：" + str(price))
-
-# このクラスで、apiで取得したティッカー情報を蓄積していく。LTP(最終取引価格)を使って値段とする？
-# ポジションを持っていないときはbestbid, bestaskで売り買い。買えるだけ買う。

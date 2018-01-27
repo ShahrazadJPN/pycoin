@@ -38,14 +38,14 @@ class Order:
                                              "product_code": product,
                                              "condition_type": "LIMIT",
                                              "side": contrary,
-                                             "price": profit, ### えっと？？？
+                                             "price": profit, ###
                                              "size": ordersize ### 所持しているビットコインの数量を入れる
                                          },
                                          {
                                              "product_code": product,
                                              "condition_type": "STOP", # ストップ注文
                                              "side": contrary,
-                                             "price": 0, # ここらへん再考
+                                             "price": 0, # ここら??
                                              "trigger_price": loss,
                                              "size": ordersize
                                          }],

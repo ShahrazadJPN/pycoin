@@ -15,12 +15,12 @@ path = "C:\\Users\\Kei\\Desktop\\bitflyer2.csv"
 product = "FX_BTC_JPY"
 
 df = pd.DataFrame(index=[],columns=[])
-df = dG.DataGetter(path)  # DFオブジェクト生成・・・最新の取得情報が入っている。
+df = dG.DataGetter(path)  # Create dataframe obj.
 api = pybitflyer.API(api_key=apiKey, api_secret=apiSecret)
 
-border = 4 # 売買する乖離率の基準値
-gotPrice = 1
-count = 0
+border = 4 # border of divergence to decide to buy/sell
+gotPrice = 1 #
+count = 0 #
 
 order = order.Order()
 ordertype = ""
@@ -39,7 +39,7 @@ while True:
                                     parent_order_state="ACTIVE")
 
     collateral = api.getcollateral()
-    money = collateral['collateral'] # 証拠金残高
+    money = collateral['collateral'] # cash in your account
 
     if isOrdering == []:
         isOrdering = False
@@ -49,32 +49,27 @@ while True:
     now = datetime.now()
     print('now:', now)
 
-    if count == 60: # 60秒経過時、csvにその時のデータを記入、かつ最新データをdfに代入
-        Info.csv(product,path) # この時点でcsvには瞬間のデータが記述される
+    if count == 60: # 60 secs (circa)
+        Info.csv(product,path) #
         count = 1
         df = dG.DataGetter.datas('')
-    elif count == 0: # 初めて処理に入ったとき,dfにデータフレームを代入
+    else: # それ以外
         df = dG.DataGetter.datas('')
         count += 1
-    else: # それ以外の時は単純にカウントを増やす
-        count += 1
 
-    row = len(df.index) - 1 # データフレームの行数マイナス1 = データフレームの最終行
+    row = len(df.index) - 1 # last row of the df
     price_now = board['mid_price']
 
-    dayDiv = df.iloc[row,6] # 1日移動平均に対する乖離率
-    days5Div = df.iloc[row,7] # 5日移動平均に対する乖離率
 
-    ewma1 = df.iloc[row,2] # 1min移動平均
-    ewma5 = df.iloc[row,3] # 3min
-    ewma25 = df.iloc[row,4]
-    ewma3 = df.iloc[row,8] # 3日
-    ewma6h = df.iloc[row,9] # 6時間移動平均
+    ewma1 = df.iloc[row,2] # ewma 1 day
+    ewma5 = df.iloc[row,3] # 5 days
+    ewma25 = df.iloc[row,4] 25 days
+    ewma3 = df.iloc[row,8] # 3 days
 
     div = (price_now - ewma25) / ewma25 * 100
-    percent = price_now / gotPrice * 100 # 現在値/取得値 => 値上がり率
+    percent = price_now / gotPrice * 100 #
 
-    if div > border and isOrdering is False and ewma1 > ewma3: # 25日平均に対する乖離率3%以上、上がり基調なので流れに乗って買う
+    if div > border and isOrdering is False and ewma1 > ewma3: #
         board = api.board(product_code=product)
         price_now = board['mid_price']
         gotPrice = price_now
@@ -86,7 +81,7 @@ while True:
         order.buy_sell(ordertype, ordersize, orderprice,product,apiKey,apiSecret)
         Info.recorder(money, gotPrice, ordersize)
 
-    elif div < border * -1 and isOrdering is False and ewma1 < ewma3: # 同上、下げ基調 6時間移動平均が1日移動平均より↓
+    elif div < border * -1 and isOrdering is False and ewma1 < ewma3: #
         board = api.board(product_code=product)
         price_now = board['mid_price']
         btc = money/price_now
