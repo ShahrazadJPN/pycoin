@@ -17,11 +17,11 @@ class Order:
 
         if ordertype == "BUY":
             contrary = "SELL"
-            profit = int(orderprice * 1.0004) # 買いポジのときの利確
+            profit = int(orderprice * 1.002) # 買いポジのときの利確
             loss = int(orderprice * 0.99) # 同上、損切ライン
         elif ordertype == "SELL":
             contrary = "BUY"
-            profit = int(orderprice * 0.9996)
+            profit = int(orderprice * 0.998)
             loss = int(orderprice * 1.01)
 
 
@@ -29,9 +29,9 @@ class Order:
                                      order_method="IFDOCO",
                                      parameters=[{
                                          "product_code": "FX_BTC_JPY",
-                                         "condition_type": "MARKET",
+                                         "condition_type": "LIMIT",
                                          "side": ordertype, # 買いか？
-                                        # "price": orderprice,
+                                         "price": orderprice,
                                          "size": ordersize
                                      },
                                          {

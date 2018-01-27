@@ -18,7 +18,7 @@ df = dG.DataGetter()  # DFオブジェクト生成・・・最新の取得情報
 
 api = pybitflyer.API(api_key="WR95knYrj36CabGWHK1gdV", api_secret="2Gv0skryfEFZTBnJ3/WocvSrRVeIbi1vzsZ9sAurqaU=")
 
-border = 0.2 # 売買する乖離率の基準値
+border = 4 # 売買する乖離率の基準値
 
 bought = False # 買いポジション？
 sold = False #
@@ -99,7 +99,7 @@ while True:
 
     percent = price_now / gotPrice * 100 # 現在値/取得値 => 値上がり率
 
-    if isOrdering is False and ewma1 > ewma5 and div > border: #div > border and isOrdering is False and ewma1 > ewma3: # 25日平均に対する乖離率3%以上、上がり基調なので流れに乗って買う
+    if div > border and isOrdering is False and ewma1 > ewma3: # 25日平均に対する乖離率3%以上、上がり基調なので流れに乗って買う
         board = api.board(product_code="FX_BTC_JPY")
         price_now = board['mid_price']
         btc = money/price_now
@@ -119,7 +119,7 @@ while True:
 
         Info.recorder(money, gotPrice, ordersize)
 
-    elif isOrdering is False and ewma1 < ewma5 and div < border * -1: # div < border * -1 and isOrdering is False and ewma1 < ewma3: # 同上、下げ基調 6時間移動平均が1日移動平均より↓
+    elif div < border * -1 and isOrdering is False and ewma1 < ewma3: # 同上、下げ基調 6時間移動平均が1日移動平均より↓
         board = api.board(product_code="FX_BTC_JPY")
         price_now = board['mid_price']
         btc = money/price_now
