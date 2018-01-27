@@ -53,17 +53,18 @@ while True:
         Info.csv(product,path) #
         count = 1
         df = dG.DataGetter.datas('')
-    else: # それ以外
+    elif count == 0:
         df = dG.DataGetter.datas('')
+        count += 1
+    else: # それ以外
         count += 1
 
     row = len(df.index) - 1 # last row of the df
     price_now = board['mid_price']
 
-
     ewma1 = df.iloc[row,2] # ewma 1 day
     ewma5 = df.iloc[row,3] # 5 days
-    ewma25 = df.iloc[row,4] 25 days
+    ewma25 = df.iloc[row,4] # 25 days
     ewma3 = df.iloc[row,8] # 3 days
 
     div = (price_now - ewma25) / ewma25 * 100
