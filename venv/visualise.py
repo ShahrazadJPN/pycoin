@@ -80,7 +80,7 @@ for div in df['divergence']: # divは25日平均
     giveBought = 99
     giveSold = 101
 
-    if  pos is False and ewma1 > ewma5:  #div > 4 and pos is False and ewma1 > ewma5: # 25日平均に対する乖離率3%以上、上がり基調なので流れに乗って買う
+    if  pos is False and ewma1 > ewma5 and div > 0.3:  #div > 4 and pos is False and ewma1 > ewma5: # 25日平均に対する乖離率3%以上、上がり基調なので流れに乗って買う
 
         btc = money/df.iloc[i,0]
         money = df.iloc[i,0]*btc
@@ -90,7 +90,7 @@ for div in df['divergence']: # divは25日平均
         gotPrice = df.iloc[i,0]
         series = pd.Series([money],index=account.columns)
         account = account.append(series, ignore_index=True)
-    elif pos is False and ewma1 < ewma5: #div < -4 and pos is False and ewma1 < ewma5: # 同上、下げ基調
+    elif pos is False and ewma1 < ewma5 and div < -0.3: #div < -4 and pos is False and ewma1 < ewma5: # 同上、下げ基調
         btc = money/df.iloc[i,0]
         money = df.iloc[i, 0] * btc
         #print ("sold btc having = "+ str(btc))
