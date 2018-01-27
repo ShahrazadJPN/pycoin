@@ -62,7 +62,7 @@ while True:
     print('now:', now)
 
     if count == 2: # 60秒経過時、csvにその時のデータを記入、かつ最新データをdfに代入
-        Info.csv() # この時点でcsvには瞬間のデータが記述される 60秒に一度記述することになる
+        Info.csv() # この時点でcsvには瞬間のデータが記述される
         count = 1
         df = dG.DataGetter.datas('')
 
