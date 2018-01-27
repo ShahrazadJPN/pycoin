@@ -18,7 +18,7 @@ df = dG.DataGetter()  # DFオブジェクト生成・・・最新の取得情報
 
 api = pybitflyer.API(api_key="WR95knYrj36CabGWHK1gdV", api_secret="2Gv0skryfEFZTBnJ3/WocvSrRVeIbi1vzsZ9sAurqaU=")
 
-border = 0.6 # 売買する乖離率の基準値
+border = 0.2 # 売買する乖離率の基準値
 
 bought = False # 買いポジション？
 sold = False #
