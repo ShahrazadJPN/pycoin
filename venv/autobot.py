@@ -9,10 +9,10 @@ import sys
 import order
 from decimal import (Decimal, ROUND_DOWN)
 
-apiKey = "WR95knYrj36CabGWHK1gdV"
-apiSecret = "2Gv0skryfEFZTBnJ3/WocvSrRVeIbi1vzsZ9sAurqaU="
-path = "C:\\Users\\Kei\\Desktop\\bitflyer2.csv"
-product = "FX_BTC_JPY"
+apiKey = "yourapi"
+apiSecret = "your secret"
+path = "csv file path"
+product = "FX_BTC_JPY" # as you want
 
 df = pd.DataFrame(index=[],columns=[])
 df = dG.DataGetter(path)  # Create dataframe obj.
